@@ -16,10 +16,10 @@ path = "src/perm2.rs"
 name = "perm3"   
 path = "src/perm3.rs"
 [[bin]]
-name = "perm4"   
-path = "src/perm4.rs"
+name = "perm_prod"   
+path = "src/perm_prod.rs"
 [[bin]]
-name = "perm5"   
-path = "src/perm5.rs"
+name = "perm_inverse"   
+path = "src/perm_inverse.rs"
 
 [dependencies]

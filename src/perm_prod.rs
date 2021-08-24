@@ -33,6 +33,7 @@ impl Permutation {
         }
     }
 
+    //Start of product method ********************
     pub fn product(a: Permutation, b: Permutation) -> Permutation {
         let mut perm = Vec::new();
 
@@ -53,12 +54,15 @@ impl Permutation {
 
         p
     }
+    //Start of product method ********************
 
     pub fn to_string(&self) -> String{
 
         format!("{:?}\n{:?}\n", self.top_row, self.bottom_row)
     }    
 }
+
+//Start of Mul trait impl ********************
 
 impl ops::Mul<Permutation> for Permutation {
     type Output = Self;
@@ -67,13 +71,14 @@ impl ops::Mul<Permutation> for Permutation {
         Self::product(self, rhs)
     }
 }
+//Start of Mul trait impl ********************
 
 
 fn main() {
-    let v = vec![1, 2, 3, 4];
+    let v = vec![1, 2, 3, 4, 5];
 
-    let v1 = vec![1, 3, 4, 2];
-    let v2 = vec![3, 4, 1, 2];
+    let v1 = vec![3, 4, 5, 1, 2];
+    let v2 = vec![3, 5, 1, 2, 4];
 
     let  p1 = Permutation::new(v.clone(), v1);
     let  p2 = Permutation::new(v.clone(), v2);
