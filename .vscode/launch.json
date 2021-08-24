@@ -1,0 +1,120 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'perm1'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=perm1",
+                    "--package=permutation_operations"
+                ],
+                "filter": {
+                    "name": "perm1",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'perm1'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=perm1",
+                    "--package=permutation_operations"
+                ],
+                "filter": {
+                    "name": "perm1",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'perm2'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=perm2",
+                    "--package=permutation_operations"
+                ],
+                "filter": {
+                    "name": "perm2",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'perm2'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=perm2",
+                    "--package=permutation_operations"
+                ],
+                "filter": {
+                    "name": "perm2",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'perm3'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=perm3",
+                    "--package=permutation_operations"
+                ],
+                "filter": {
+                    "name": "perm3",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'perm3'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=perm3",
+                    "--package=permutation_operations"
+                ],
+                "filter": {
+                    "name": "perm3",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+
+    ]
+}

@@ -1,0 +1,25 @@
+[package]
+name = "permutation_operations"
+version = "0.1.0"
+authors = ["brad"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "perm1"   
+path = "src/perm1.rs"   
+[[bin]]
+name = "perm2"   
+path = "src/perm2.rs"
+[[bin]]
+name = "perm3"   
+path = "src/perm3.rs"
+[[bin]]
+name = "perm4"   
+path = "src/perm4.rs"
+[[bin]]
+name = "perm5"   
+path = "src/perm5.rs"
+
+[dependencies]
