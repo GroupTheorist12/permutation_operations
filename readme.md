@@ -294,21 +294,16 @@ We will calculate the inverse permutation of order 4.
 ![perm_inverse_2](perm_inverse_2.gif)
 
 1. Exchange top row with bottom row 
-
-![perm_inverse_4](perm_inverse_4.png)
+   ![perm_inverse_4](perm_inverse_4.png)
 2. 1 goes to 2 in new permutation 
-
-![perm_inverse_3](perm_inverse_3.png)
+   ![perm_inverse_3](perm_inverse_3.png)
 3. 2 goes to 3 in new permutation
-
-![perm_inverse_5](perm_inverse_5.png)
+   ![perm_inverse_5](perm_inverse_5.png)
 4. 3 goes to 1 in new permutation
-
-![perm_inverse_6](perm_inverse_6.png)
+   ![perm_inverse_6](perm_inverse_6.png)
 5. 4 goes to 4 in new permutation
-
-![perm_inverse_7](perm_inverse_7.png)
-6. We are done.
+   ![perm_inverse_7](perm_inverse_7.png)
+   We are done.
 
 We will create a **inverse** method. The source is below.
 
