@@ -226,7 +226,7 @@ impl Permutation {
 
         p
     }
-    //Start of product method ********************
+    //End of product method ********************
 
     pub fn to_string(&self) -> String{
 
@@ -243,7 +243,7 @@ impl ops::Mul<Permutation> for Permutation {
         Self::product(self, rhs)
     }
 }
-//Start of Mul trait impl ********************
+//End of Mul trait impl ********************
 
 
 fn main() {
@@ -276,4 +276,160 @@ $ cargo run --bin perm_prod
 [1, 2, 3, 4, 5][1, 2, 3, 4, 5]   [1, 2, 3, 4, 5]
 [3, 4, 5, 1, 2][3, 5, 1, 2, 4] = [5, 2, 3, 4, 1]
 ```
+
+#### Permutation Identity
+
+The permutation identity is any permutation that has the same top row as bottom row. (The top row is ordered). So for an order 4 permutation the identity is:
+
+![perm_identity](perm_identity.png)
+
+#### Permutation Inverse
+
+A permutation inverse is a permutation that when the product is taken with another permutation returns the identity permutation.  This is shown below for n = 3:
+
+![perm_inverse_1](perm_inverse_1.gif)
+
+We will calculate the inverse permutation of order 4. ![perm_inverse_2](perm_inverse_2.gif)
+
+1. Exchange top row with bottom row ![perm_inverse_4](perm_inverse_4.png)
+2. 1 goes to 2 in new permutation ![perm_inverse_3](perm_inverse_3.png)
+3. 2 goes to 3 in new permutation ![perm_inverse_5](perm_inverse_5.png)
+4. 3 goes to 1 in new permutation  ![perm_inverse_6](perm_inverse_6.png)
+5. 4 goes to 4 in new permutation  ![perm_inverse_7](perm_inverse_7.png)
+6. We are done.
+
+We will create a **inverse** method. The source is below.
+
+######     perm_inverse.rs
+
+```rust
+use std::fmt;
+use std::ops;
+
+#[derive(Clone, PartialEq)]
+pub struct Permutation {
+    pub order: i32,
+    pub top_row: Vec<i32>,
+    pub bottom_row: Vec<i32>,
+    pub full_rep: String,
+}
+
+impl fmt::Display for Permutation {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.full_rep != String::from("") {
+            write!(f, "{}", self.full_rep)
+
+        }
+        else {
+        
+            write!(f, "{}", self.to_string())
+
+        }
+    }
+}
+
+impl Permutation {
+    pub fn new(tr: Vec<i32>, br: Vec<i32>) -> Permutation {
+        Permutation {
+            order: tr.len() as i32,
+            top_row: tr.clone(),
+            bottom_row: br.clone(),
+            full_rep: String::from("")
+        }
+    }
+
+    pub fn product(a: Permutation, b: Permutation) -> Permutation {
+        let mut perm = Vec::new();
+
+        for i in 0..a.top_row.len() {
+            let ib = b.bottom_row[i] - 1;
+            let ia = a.bottom_row[ib as usize];
+            perm.push(ia);
+        }
+
+        let mut p = Permutation::new(a.top_row.clone(), perm);
+        p.full_rep = format!("{:?}{:?}   {:?}\n{:?}{:?} = {:?}", 
+        a.top_row,
+        b.top_row, 
+        p.top_row,
+        a.bottom_row,
+        b.bottom_row, 
+        p.bottom_row);
+
+        p
+    }
+
+    //start of inverse method***************
+    pub fn inverse(&mut self) -> Permutation {
+        let mut perm = self.top_row.clone();
+
+        for i in 0..self.bottom_row.len() {
+            let ib = self.bottom_row[i] - 1;
+            let ia = self.top_row[i];
+            perm[ib as usize] = ia;
+        }
+
+        let  p = Permutation::new(self.top_row.clone(), perm);
+
+        p
+    }
+    //end of inverse method***************
+
+    pub fn to_string(&self) -> String{
+
+        format!("{:?}\n{:?}\n", self.top_row, self.bottom_row)
+    }    
+}
+
+impl ops::Mul<Permutation> for Permutation {
+    type Output = Self;
+
+    fn mul(self, rhs: Self) -> Self {
+        Self::product(self, rhs)
+    }
+}
+
+
+fn main() {
+    let v = vec![1, 2, 3, 4];
+
+    let v1 = vec![1, 3, 4, 2];
+
+    let  mut p1 = Permutation::new(v.clone(), v1);
+
+    let p2 = p1.inverse();
+
+
+    println!("{}", p2);
+
+    let p3 = p1 * p2.clone();
+
+    println!("{}", p3);
+
+}
+
+
+```
+
+
+
+Running the above produces the following output:
+
+```bash
+$ cargo run --bin perm_inverse
+   Compiling permutation_operations v0.1.0 (/home/brad/RustProjects/permutation_operations)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.53s
+     Running `target/debug/perm_inverse`
+[1, 2, 3, 4]
+[1, 4, 2, 3]
+
+[1, 2, 3, 4][1, 2, 3, 4]   [1, 2, 3, 4]
+[1, 3, 4, 2][1, 4, 2, 3] = [1, 2, 3, 4]
+```
+
+Notice how taking the product of the two permutations produces the identity permutation.
+
+
+
+
 
