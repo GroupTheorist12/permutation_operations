@@ -283,6 +283,8 @@ The permutation identity is any permutation that has the same top row as bottom 
 
 ![perm_identity](perm_identity.png)
 
+The **identity** method can be found in the **perm_inverse.rs** file below.
+
 #### Permutation Inverse
 
 A permutation inverse is a permutation that when the product is taken with another permutation returns the identity permutation.  This is shown below for n = 3:
@@ -377,7 +379,6 @@ impl Permutation {
         p
     }
 
-    //start of inverse method***************
     pub fn inverse(&mut self) -> Permutation {
         let mut perm = self.top_row.clone();
 
@@ -391,12 +392,15 @@ impl Permutation {
 
         p
     }
-    //end of inverse method***************
 
     pub fn to_string(&self) -> String{
 
         format!("{:?}\n{:?}\n", self.top_row, self.bottom_row)
-    }    
+    }
+    
+    pub fn identity(&self) -> bool {
+        self.top_row.iter().zip(self.bottom_row.iter()).all(|(a,b)| a == b)
+    }
 }
 
 impl ops::Mul<Permutation> for Permutation {
@@ -422,10 +426,11 @@ fn main() {
 
     let p3 = p1 * p2.clone();
 
+    println!("{}", p3.identity());
+
     println!("{}", p3);
 
 }
-
 
 ```
 
@@ -435,12 +440,12 @@ Running the above produces the following output:
 
 ```bash
 $ cargo run --bin perm_inverse
-   Compiling permutation_operations v0.1.0 (/home/brad/RustProjects/permutation_operations)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.53s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.00s
      Running `target/debug/perm_inverse`
 [1, 2, 3, 4]
 [1, 4, 2, 3]
 
+true
 [1, 2, 3, 4][1, 2, 3, 4]   [1, 2, 3, 4]
 [1, 3, 4, 2][1, 4, 2, 3] = [1, 2, 3, 4]
 ```

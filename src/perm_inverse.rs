@@ -71,7 +71,11 @@ impl Permutation {
     pub fn to_string(&self) -> String{
 
         format!("{:?}\n{:?}\n", self.top_row, self.bottom_row)
-    }    
+    }
+    
+    pub fn identity(&self) -> bool {
+        self.top_row.iter().zip(self.bottom_row.iter()).all(|(a,b)| a == b)
+    }
 }
 
 impl ops::Mul<Permutation> for Permutation {
@@ -96,6 +100,8 @@ fn main() {
     println!("{}", p2);
 
     let p3 = p1 * p2.clone();
+
+    println!("{}", p3.identity());
 
     println!("{}", p3);
 
