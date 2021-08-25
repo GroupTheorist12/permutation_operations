@@ -14,6 +14,7 @@ impl fmt::Display for Permutation {
 }
 
 impl Permutation {
+    // start of new method ***************
     pub fn new(tr: Vec<i32>, br: Vec<i32>) -> Permutation {
         Permutation {
             order: tr.len() as i32,
@@ -21,6 +22,7 @@ impl Permutation {
             bottom_row: br.clone()
         }
     }
+    // end of new method ***************
 
 }
 fn main() {
