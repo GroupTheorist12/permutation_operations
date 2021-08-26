@@ -472,11 +472,11 @@ Starting with zeroed matrix, Row 2, column 1 gets a 1
 
 Row 1, column 2 gets a 1
 
-![perm_matrix_4](W:\home\brad\RustProjects\permutation_operations\perm_matrix_4.png)
+![perm_matrix_4](perm_matrix_4.png)
 
 Row 3, column 3 gets a 1
 
-![perm_matrix_5](W:\home\brad\RustProjects\permutation_operations\perm_matrix_5.png)
+![perm_matrix_5](perm_matrix_5.png)
 
 We are done
 
