@@ -456,3 +456,266 @@ Notice how taking the product of the two permutations produces the identity perm
 
 
 
+#### Permutation Matrix
+
+Permutation matrices are square matrices with a single 1 in each column and a single 1 in each row with zeros elsewhere. An example of a 3 x 3 permutation matrix:
+
+![perm_matrix_1](perm_matrix_1.png)
+
+We can convert from a permutation to a permutation matrix as follows:
+
+![perm_matrix_2](perm_matrix_2.png)
+
+Starting with zeroed matrix, Row 2, column 1 gets a 1
+
+![perm_matrix_3](perm_matrix_3.png)
+
+Row 1, column 2 gets a 1
+
+![perm_matrix_4](W:\home\brad\RustProjects\permutation_operations\perm_matrix_4.png)
+
+Row 3, column 3 gets a 1
+
+![perm_matrix_5](W:\home\brad\RustProjects\permutation_operations\perm_matrix_5.png)
+
+We are done
+
+
+
+We will create a **IntMatrix** struct that will handle the duty as a permutation matrix (and other duties as well).
+
+######     IntMatrix
+
+```rust
+//********* start of IntMatrix
+#[derive(Clone, PartialEq)]
+pub struct IntMatrix {
+    pub rows: i32,
+    pub cols: i32,
+    pub matris: Vec<Vec<i32>>,
+}
+//********* end of IntMatrix
+
+```
+
+We need a **new** method impl.
+
+######     new method impl
+
+```rust
+impl IntMatrix {
+    pub fn new(order: i32) -> IntMatrix {
+        let matrix = vec![vec![0i32; order as usize]; order as usize];
+
+        IntMatrix {
+            rows: order,
+            cols: order,
+            matris: matrix,
+        }
+    }
+}
+
+```
+
+Notice that the matrix is square since we are using the order for both rows and columns.
+
+We will create a **zero** method so that we can zero out a matrix.
+
+######     zero method
+
+```rust
+impl IntMatrix {
+    pub fn zero(&mut self) {
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                self.matris[i as usize][j as usize] = 0i32;
+            }
+        }
+    }
+}
+
+```
+
+We will create a **getter** and **setter** methods.
+
+######     getter, setter methods
+
+```rust
+impl IntMatrix {
+    pub fn set_value(&mut self, row: usize, col: usize, value: i32) {
+        self.matris[row][col] = value;
+    }
+}
+
+impl IntMatrix {
+    pub fn get_value(&mut self, row: usize, col: usize) -> i32 {
+        self.matris[row][col]
+    }
+}
+
+```
+We will create a **to_string**  method that will produce a nicely formatted matrix.
+
+######     to_string method
+
+```rust
+impl IntMatrix {
+    pub fn to_string(&self) -> String {
+        let mut s = String::new();
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                let vr = format!("{} ", self.matris[i as usize][j as usize]);
+                s.push_str(&vr);
+            }
+            s.push_str("\n");
+        }
+        s
+    }
+}
+
+```
+
+We implement the **Display** trait for **IntMatrix**
+
+######     Implement Display Trait
+
+```rust
+impl fmt::Display for IntMatrix {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.to_string())
+    }
+}
+
+```
+
+Notice it calls the **to_string** method.
+
+And finally we create a **get_perm_matrix** method.
+
+######     get_perm_matrix Method
+
+```rust
+pub fn get_perm_matrix(br: Vec<i32>) -> IntMatrix {
+    let mut ret = IntMatrix::new(br.len() as i32);
+    ret.zero();
+
+    for i in 0..br.len() {
+        let col_n = br[i] - 1;
+
+        ret.set_value(col_n as usize, i as usize, 1i32); //perm value is row, i is column
+    }
+
+    ret
+}
+
+```
+
+This method creates a permutation matrix from a permutation. 
+
+The full source is found below:
+
+```rust
+use std::fmt;
+use std::ops;
+
+//********* start of IntMatrix
+#[derive(Clone, PartialEq)]
+pub struct IntMatrix {
+    pub rows: i32,
+    pub cols: i32,
+    pub matris: Vec<Vec<i32>>,
+}
+//********* end of IntMatrix
+
+//********* start of IntMatrix impl's
+impl IntMatrix {
+    pub fn new(order: i32) -> IntMatrix {
+        let matrix = vec![vec![0i32; order as usize]; order as usize];
+
+        IntMatrix {
+            rows: order,
+            cols: order,
+            matris: matrix,
+        }
+    }
+}
+
+impl IntMatrix {
+    pub fn zero(&mut self) {
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                self.matris[i as usize][j as usize] = 0i32;
+            }
+        }
+    }
+}
+
+impl IntMatrix {
+    pub fn set_value(&mut self, row: usize, col: usize, value: i32) {
+        self.matris[row][col] = value;
+    }
+}
+
+impl IntMatrix {
+    pub fn get_value(&mut self, row: usize, col: usize) -> i32 {
+        self.matris[row][col]
+    }
+}
+
+impl IntMatrix {
+    pub fn to_string(&self) -> String {
+        let mut s = String::new();
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                let vr = format!("{} ", self.matris[i as usize][j as usize]);
+                s.push_str(&vr);
+            }
+            s.push_str("\n");
+        }
+        s
+    }
+}
+
+//********* end of IntMatrix impl's
+
+impl fmt::Display for IntMatrix {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.to_string())
+    }
+}
+
+pub fn get_perm_matrix(br: Vec<i32>) -> IntMatrix {
+    let mut ret = IntMatrix::new(br.len() as i32);
+    ret.zero();
+
+    for i in 0..br.len() {
+        let col_n = br[i] - 1;
+
+        ret.set_value(col_n as usize, i as usize, 1i32); //perm value is row, i is column
+    }
+
+    ret
+}
+
+fn main(){
+    let v1 = vec![2, 1, 3];
+
+    let perm_matrix = get_perm_matrix(v1);
+
+    println!("{}", perm_matrix);
+
+}
+
+```
+Running the above produces the following output:
+
+```bash
+$ cargo run --bin int_matrix_1
+   Compiling permutation_operations v0.1.0 (/home/brad/RustProjects/permutation_operations)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.50s
+     Running `target/debug/int_matrix_1`
+0 1 0 
+1 0 0 
+0 0 1 
+```
+

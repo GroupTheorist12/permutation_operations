@@ -21,5 +21,12 @@ path = "src/perm_prod.rs"
 [[bin]]
 name = "perm_inverse"   
 path = "src/perm_inverse.rs"
+[[bin]]
+name = "int_matrix_1"   
+path = "src/int_matrix_1.rs"
+[[bin]]
+name = "perm_matrix_1"   
+path = "src/perm_matrix_1.rs"
+
 
 [dependencies]
