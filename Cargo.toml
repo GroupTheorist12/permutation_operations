@@ -25,6 +25,9 @@ path = "src/perm_inverse.rs"
 name = "int_matrix_1"   
 path = "src/int_matrix_1.rs"
 [[bin]]
+name = "int_matrix_2"   
+path = "src/int_matrix_2.rs"
+[[bin]]
 name = "perm_matrix_1"   
 path = "src/perm_matrix_1.rs"
 
