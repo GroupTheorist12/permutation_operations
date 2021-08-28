@@ -30,6 +30,9 @@ path = "src/int_matrix_2.rs"
 [[bin]]
 name = "perm_matrix_1"   
 path = "src/perm_matrix_1.rs"
+[[bin]]
+name = "main"   
+path = "src/perm_ops/main.rs"
 
 
 [dependencies]
