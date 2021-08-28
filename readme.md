@@ -614,6 +614,8 @@ This method creates a permutation matrix from a permutation.
 
 The full source is found below:
 
+######     int_matrix_1.rs
+
 ```rust
 use std::fmt;
 use std::ops;
@@ -717,5 +719,49 @@ $ cargo run --bin int_matrix_1
 0 1 0 
 1 0 0 
 0 0 1 
+```
+
+#### Permutation Matrix Transpose
+The transpose of a matrix is swapping the rows for columns in the matrix.  An example for n = 3 is:
+
+![int_matrix_1](int_matrix_1.png)
+
+We implement the **transpose** method for **IntMatrix**
+
+######      transpose method
+
+```rust
+impl IntMatrix {
+    pub fn transpose(&mut self) -> IntMatrix {
+        let mut ret = IntMatrix::new(self.rows);
+        
+        for i in 0..self.cols as usize {
+          for  j in 0.. self.rows as usize{
+            ret.set_value(j, i, self.get_value(i, j));
+          }
+        }
+        ret
+    }
+}
+
+```
+#### Permutation Matrix Inverse
+The transpose of a permutation matrix is also it's inverse. 
+
+The product of the a permutation matrix and it's inverse is the identity:
+
+![int_matrix_2](int_matrix_2.png)
+
+We implement the **inverse** method for **IntMatrix** by taking it's transpose.
+
+######      inverse method
+
+```rust
+impl IntMatrix {
+    pub fn inverse(&mut self) -> IntMatrix{
+        self.transpose()
+    }
+}
+
 ```
 

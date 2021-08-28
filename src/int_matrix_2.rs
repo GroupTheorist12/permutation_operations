@@ -58,6 +58,25 @@ impl IntMatrix {
         s
     }
 }
+
+impl IntMatrix {
+    pub fn transpose(&mut self) -> IntMatrix {
+        let mut ret = IntMatrix::new(self.rows);
+        
+        for i in 0..self.cols as usize {
+          for  j in 0.. self.rows as usize{
+            ret.set_value(j, i, self.get_value(i, j));
+          }
+        }
+        ret
+    }
+}
+
+impl IntMatrix {
+    pub fn inverse(&mut self) -> IntMatrix{
+        self.transpose()
+    }
+}
 impl IntMatrix {
     pub fn product(a_in: IntMatrix, b_in: IntMatrix) -> IntMatrix {
         let mut a = a_in.clone();
@@ -81,6 +100,22 @@ impl IntMatrix {
     }
 }
 
+impl IntMatrix {
+    pub fn identity(&mut self) -> bool {
+        let mut ret = false;
+        for i in 0..self.rows as usize {
+            if self.get_value(i, i) == 1 {
+                ret = true;
+            }
+            else {
+                ret = false;
+            }
+
+        }
+        ret
+    }
+
+}
 //********* end of IntMatrix impl's
 
 impl fmt::Display for IntMatrix {
@@ -125,5 +160,15 @@ fn main() {
     println!("{}", perm_matrix1);
     println!("{}", perm_matrix2);
 
-    println!("{}", perm_matrix);
+    println!("permutaion matrix product:\n{}", perm_matrix);
+
+    let tp = perm_matrix.clone().transpose();
+    println!("permutation matrix transpose:\n{}", tp);
+
+    let tp2 = perm_matrix.clone().inverse();
+    println!("permutation matrix identity same as transpose:\n{}", tp2);
+
+    let idn = perm_matrix.clone() * tp2.clone();
+    println!("The product of a permutation matrix and it's inverse is the identity\n{} {}", idn, idn.clone().identity());
+
 }
