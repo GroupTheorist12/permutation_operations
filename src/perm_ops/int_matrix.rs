@@ -132,6 +132,28 @@ impl IntMatrix {
     }
     
 }
+impl IntMatrix {
+    pub fn to_latex(&self) -> String {
+        let mut s = String::new();
+        s.push_str("\\begin{bmatrix}\n");
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                if j < self.cols - 1 {
+                    let vr = format!("{} &", self.matris[i as usize][j as usize]);
+                    s.push_str(&vr);
+                } else {
+                    let vrn = format!("{}", self.matris[i as usize][j as usize]);
+                    s.push_str(&vrn);
+                }
+            }
+            s.push_str("\\\\\n");
+        }
+        s.push_str(" \\end{bmatrix}");
+        s
+    }
+}
+
+
 //********* end of IntMatrix impl's
 
 impl fmt::Display for IntMatrix {

@@ -35,4 +35,8 @@ name = "main"
 path = "src/perm_ops/main.rs"
 
 
+# add in cargo.toml
+[build-dependencies]
+cc = "1.0"
+
 [dependencies]
