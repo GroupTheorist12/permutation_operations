@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.28)  30 AUG 2021 23:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.28)  7 SEP 2021 07:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**mungout.tex
-(./mungout.tex
+**permutation_list_filter_latex_out.tex
+(./permutation_list_filter_latex_out.tex
 LaTeX2e <2020-02-02> patch level 2
 L3 programming layer <2020-02-14> (/usr/share/texlive/texmf-dist/tex/latex/base
 /article.cls
@@ -89,8 +89,8 @@ LaTeX Info: Redefining \] on input line 2860.
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count187
 \l__pdf_internal_box=\box47
-) (./mungout.aux)
-\openout1 = `mungout.aux'.
+) (./permutation_list_filter_latex_out.aux)
+\openout1 = `permutation_list_filter_latex_out.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
 LaTeX Font Info:    ... okay on input line 7.
@@ -115,19 +115,20 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 9.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./mungout.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./permutation_list_filter
+_latex_out.aux) ) 
 Here is how much of TeX's memory you used:
  1493 strings out of 483183
- 18555 string characters out of 5966292
- 243585 words of memory out of 5000000
+ 18815 string characters out of 5966292
+ 243637 words of memory out of 5000000
  16555 multiletter control sequences out of 15000+600000
  534037 words of font info for 32 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 30i,8n,31p,203b,101s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on mungout.pdf (1 page, 15983 bytes).
+ 30i,8n,31p,229b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
+pfb>
+Output written on permutation_list_filter_latex_out.pdf (1 page, 16770 bytes).
 PDF statistics:
  16 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream

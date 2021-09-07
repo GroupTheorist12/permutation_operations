@@ -6,6 +6,7 @@
 #include <stdint.h>
 #endif
 
+
 char template1[2000] =
 	"\\documentclass[]{article}\n"
 	"    \\usepackage{amssymb}\n"
@@ -35,6 +36,27 @@ void createpdf(char *fil, char *latex)
 	fwrite(latex, 1, strlen(latex), f);
 	fwrite(template2, 1, strlen(template2), f);
 
+	fclose(f);
+
+    sprintf(command, "pdflatex --interaction=batchmode %s", filout);   
+
+    system(command);
+
+    sprintf(command2, "xdg-open %s.pdf", fil);   
+
+    system(command2);
+
+}
+
+void createpdffromtex(char *fil, char *tex)
+{
+	char command[100];
+	char command2[100];
+
+    char filout[50];
+    sprintf(filout, "%s.tex", fil);
+  	FILE *f = fopen(filout, "w");
+	fwrite(tex, 1, strlen(tex), f);
 	fclose(f);
 
     sprintf(command, "pdflatex --interaction=batchmode %s", filout);   

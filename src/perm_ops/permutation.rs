@@ -66,12 +66,72 @@ impl Permutation {
     pub fn to_string(&self) -> String {
         format!("{:?}\n{:?}\n", self.top_row, self.bottom_row)
     }
+
     pub fn identity(&self) -> bool {
         self.top_row
             .iter()
             .zip(self.bottom_row.iter())
             .all(|(a, b)| a == b)
     }
+
+    pub fn has_row_column(perm: Permutation, r: i32, c: i32) -> bool{
+        perm.top_row
+            .iter()
+            .zip(perm.bottom_row.iter())
+            .any(|(a, b)| *a == c && *b == r)
+
+    }
+
+    pub fn is_off_diagonal(&self) -> bool {
+        self.top_row
+            .iter()
+            .zip(self.bottom_row.iter())
+            .all(|(a, b)| a != b)
+
+    }
+
+    pub fn repeat_character(c: char, times: usize) -> String {
+        let mut sbuilder = String::new();
+
+        for _ in 0..times {
+            sbuilder.push(c);
+        }
+        sbuilder
+    }
+
+    pub fn to_latex(&self) -> String {
+        let s = r#"
+        \left(
+        \begin{array}{REPLACE_THECC}
+        REPLACE_MY_TOP_ROW\\
+        REPLACE_MY_BOTTOM_ROW\\
+        \end{array}
+        \right)
+        "#;
+
+        let s3 = &s.replace("REPLACE_THECC", &Permutation::repeat_character('c', self.top_row.len()));
+        let mut j1 = String::new();
+        let mut j2 = String::new();
+
+        for i in 0..self.top_row.len() {
+
+            if i < self.top_row.len() - 1 {
+                j1.push_str(&format!("{}&", self.top_row[i]));
+                j2.push_str(&format!("{}&", self.bottom_row[i]));
+            }
+            else {
+                j1.push_str(&format!("{}", self.top_row[i]));
+                j2.push_str(&format!("{}", self.bottom_row[i]));
+
+            }
+
+        }
+        let s4 = &s3.replace("REPLACE_MY_TOP_ROW", &j1);
+        let s5 = &s4.replace("REPLACE_MY_BOTTOM_ROW", &j2);
+    
+        s5.to_string()
+    }
+
 }
 
 impl ops::Mul<Permutation> for Permutation {
