@@ -1,9 +1,79 @@
-//use std::ops;
-//use std::fmt;
+use std::fmt;
+use std::ops;
 
-use crate::Permutation;
-//use crate::IntMatrix;
+#[derive(Clone, PartialEq)]
+pub struct Permutation {
+    pub order: i32,
+    pub top_row: Vec<i32>,
+    pub bottom_row: Vec<i32>,
+    pub full_rep: String,
+}
 
+impl fmt::Display for Permutation {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.full_rep != String::from("") {
+            write!(f, "{}", self.full_rep)
+
+        }
+        else {
+        
+            write!(f, "{}", self.to_string())
+
+        }
+    }
+}
+
+impl Permutation {
+    pub fn new(tr: Vec<i32>, br: Vec<i32>) -> Permutation {
+        Permutation {
+            order: tr.len() as i32,
+            top_row: tr.clone(),
+            bottom_row: br.clone(),
+            full_rep: String::from("")
+        }
+    }
+
+    //Start of product method ********************
+    pub fn product(a: Permutation, b: Permutation) -> Permutation {
+        let mut perm = Vec::new();
+
+        for i in 0..a.top_row.len() {
+            let ib = b.bottom_row[i] - 1;
+            let ia = a.bottom_row[ib as usize];
+            perm.push(ia);
+        }
+
+        let mut p = Permutation::new(a.top_row.clone(), perm);
+        p.full_rep = format!("{:?}{:?}   {:?}\n{:?}{:?} = {:?}", 
+        a.top_row,
+        b.top_row, 
+        p.top_row,
+        a.bottom_row,
+        b.bottom_row, 
+        p.bottom_row);
+
+        p
+    }
+    //Start of product method ********************
+
+    pub fn to_string(&self) -> String{
+
+        format!("{:?}\n{:?}\n", self.top_row, self.bottom_row)
+    }    
+}
+
+//Start of Mul trait impl ********************
+
+impl ops::Mul<Permutation> for Permutation {
+    type Output = Self;
+
+    fn mul(self, rhs: Self) -> Self {
+        Self::product(self, rhs)
+    }
+}
+//Start of Mul trait impl ********************
+
+//Start of PermutationList impl
 #[derive(Clone, PartialEq)]
 pub struct PermutationList {
     pub order: i32,
@@ -40,6 +110,9 @@ impl PermutationList {
         }
         v
     }
+}
+impl PermutationList {
+
     pub fn get_permutations(&mut self, mut set: Vec<i32>) {
         let mut ind1 = 1;
         let mut ind2 = 2;
@@ -63,6 +136,9 @@ impl PermutationList {
             }
         }
     }
+}
+
+impl PermutationList {
 
     pub fn permute(&mut self, mut set: Vec<i32>) {
         
@@ -93,7 +169,9 @@ impl PermutationList {
             }
         }
     }
+}
 
+impl PermutationList {
     pub fn new(o: i32) -> PermutationList {
         PermutationList {
             order: o,
@@ -104,3 +182,13 @@ impl PermutationList {
     }
 }
 
+fn main() {
+    let mut perms = PermutationList::new(3);
+
+    perms.permute(perms.set_imut.clone());
+
+    for perm in perms.perms {
+        println!("{}", perm);
+    }
+
+}

@@ -33,6 +33,9 @@ path = "src/perm_matrix_1.rs"
 [[bin]]
 name = "main"   
 path = "src/perm_ops/main.rs"
+[[bin]]
+name = "perms_set_1"   
+path = "src/perms_set_1.rs"
 
 
 # add in cargo.toml
