@@ -99,6 +99,16 @@ impl Permutation {
         sbuilder
     }
 
+    pub fn to_tuple_vector(&self) -> Vec<(i32, i32)> {
+
+        let mut v:Vec<(i32, i32)>  = Vec::new();
+
+        for i in 0..self.top_row.len() {
+            v.push((self.top_row[i], self.bottom_row[i]));
+        }
+        v
+
+    }
     pub fn to_latex(&self) -> String {
         let s = r#"
         \left(

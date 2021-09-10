@@ -60,6 +60,15 @@ impl Permutation {
 
         format!("{:?}\n{:?}\n", self.top_row, self.bottom_row)
     }    
+
+    pub fn is_off_diagonal(&self) -> bool {
+        self.top_row
+            .iter()
+            .zip(self.bottom_row.iter())
+            .all(|(a, b)| a != b)
+
+    }
+
 }
 
 //Start of Mul trait impl ********************
@@ -75,15 +84,17 @@ impl ops::Mul<Permutation> for Permutation {
 
 
 fn main() {
-    let v = vec![1, 2, 3, 4, 5];
+    let v = vec![1, 2, 3, 4];
 
-    let v1 = vec![3, 4, 5, 1, 2];
-    let v2 = vec![3, 5, 1, 2, 4];
+    let v1 = vec![2, 3, 4, 1];
+    let v2 = vec![3, 1, 4, 2];
 
     let  p1 = Permutation::new(v.clone(), v1);
     let  p2 = Permutation::new(v.clone(), v2);
 
     let p3 = p1.clone() * p2.clone();
+    
+    println!("{} {}", p3, p3.is_off_diagonal());
 
-    println!("{}", p3);
+
 }
