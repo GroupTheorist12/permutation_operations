@@ -2,7 +2,7 @@ use std::fmt;
 use std::ops;
 
 //********* start of IntMatrix
-#[derive(Clone, PartialEq)]
+#[derive(Clone, Hash, Eq, PartialEq, Debug)]
 pub struct IntMatrix {
     pub rows: i32,
     pub cols: i32,
@@ -46,6 +46,51 @@ impl IntMatrix {
 }
 
 impl IntMatrix {
+    pub fn is_unital(&self) -> bool {
+        let mut ret = true;
+        'outer: for i in 0..self.rows {
+            for j in 0..self.cols {
+                if self.matris[i as usize][j as usize] != 1i32 {
+                    ret = false;
+                    break 'outer;
+                }
+            }
+        }
+        ret
+    }
+}
+
+impl IntMatrix {
+    pub fn has_zeros(&self) -> bool {
+        let mut ret = false;
+        'outer: for i in 0..self.rows {
+            for j in 0..self.cols {
+                if self.matris[i as usize][j as usize] == 0i32 {
+                    ret = true;
+                    break 'outer;
+                }
+            }
+        }
+        ret
+    }
+}
+
+impl IntMatrix {
+    pub fn is_off_diagonal(&self) -> bool {
+        let mut ret = true;
+        'outer: for i in 0..self.rows {
+            for j in 0..self.cols {
+                if i == j && self.matris[i as usize][j as usize] != 0i32 {
+                    ret = false;
+                    break 'outer;
+                }
+            }
+        }
+        ret
+    }
+}
+
+impl IntMatrix {
     pub fn to_string(&self) -> String {
         let mut s = String::new();
         for i in 0..self.rows {
@@ -56,6 +101,42 @@ impl IntMatrix {
             s.push_str("\n");
         }
         s
+    }
+}
+
+impl IntMatrix {
+    pub fn swap_row(&mut self, row_a: usize, row_b: usize) -> IntMatrix {
+
+        let mut swap_matrix = self.clone();
+
+        let ra = row_a - 1; // indexer
+        let rb = row_b - 1; // indexer
+
+        for i in 0..self.cols as usize {
+                swap_matrix.set_value(ra, i, self.get_value(rb, i));
+                swap_matrix.set_value(rb, i, self.get_value(ra, i));
+            
+          }
+  
+        swap_matrix
+    }
+}
+
+impl IntMatrix {
+    pub fn set_row_from_vec(matrix: &mut IntMatrix, vector: Vec<i32>, row: usize) {
+
+        for i in 0..matrix.cols as usize {
+            matrix.set_value(row, i, vector[i]);
+        }
+    }
+}
+
+impl IntMatrix {
+    pub fn set_col_from_vec(matrix: &mut IntMatrix, vector: Vec<i32>, col: usize) {
+
+        for i in 0..matrix.rows as usize {
+            matrix.set_value(i, col, vector[i]);
+        }
     }
 }
 
@@ -97,6 +178,40 @@ impl IntMatrix {
             }
         }
         perm_matrix
+    }
+}
+
+impl IntMatrix {
+    pub fn mul_scalar(&self, scalar_value: i32) -> IntMatrix {
+        let mut ret = self.clone();
+
+        for i in 0..self.rows as usize {
+            for j in 0..self.cols as usize {
+            
+                let val = ret.get_value(i, j) * scalar_value;
+                ret.set_value(i, j, val);
+            }     
+        }    
+        ret
+    }
+}
+impl IntMatrix {
+    pub fn addition(a_in: IntMatrix, b_in: IntMatrix) -> IntMatrix {
+        let mut a = a_in.clone();
+        let mut b = b_in.clone();
+
+        let mut perm_matrix = IntMatrix::new(a.rows);
+
+        perm_matrix.zero();
+
+        for i in 0..perm_matrix.rows as usize {
+            for j in 0..perm_matrix.cols as usize {
+                perm_matrix
+                .set_value(i, j, a.get_value(i, j) + b.get_value(i, j));
+            }
+        }
+        perm_matrix
+
     }
 }
 
@@ -153,6 +268,27 @@ impl IntMatrix {
     }
 }
 
+impl IntMatrix {
+    pub fn get_row(&self, row: usize) ->Vec<i32> {
+        let mut v:Vec<i32> = Vec::new();
+
+        for i in 0..self.cols as usize {
+            v.push(self.matris[row][i]);
+        }
+        v
+    }
+}
+
+impl IntMatrix {
+    pub fn get_col(&self, col: usize) ->Vec<i32> {
+        let mut v:Vec<i32> = Vec::new();
+
+        for i in 0..self.cols as usize {
+            v.push(self.matris[i][col]);
+        }
+        v
+    }
+}
 
 //********* end of IntMatrix impl's
 
@@ -167,6 +303,14 @@ impl ops::Mul<IntMatrix> for IntMatrix {
 
     fn mul(self, rhs: Self) -> Self {
         Self::product(self, rhs)
+    }
+}
+
+impl ops::Add<IntMatrix> for IntMatrix {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self {
+        Self::addition(self, rhs)
     }
 }
 

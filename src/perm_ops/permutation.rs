@@ -82,12 +82,24 @@ impl Permutation {
 
     }
 
+    pub fn contains_row_column(&self, r: i32, c: i32) -> bool{
+        self.top_row
+            .iter()
+            .zip(self.bottom_row.iter())
+            .any(|(a, b)| *a == c && *b == r)
+
+    }
+
     pub fn is_off_diagonal(&self) -> bool {
+        
+        /*
         self.top_row
             .iter()
             .zip(self.bottom_row.iter())
             .all(|(a, b)| a != b)
+        */
 
+        self.get_perm_matrix().is_off_diagonal()
     }
 
     pub fn repeat_character(c: char, times: usize) -> String {

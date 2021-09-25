@@ -102,5 +102,38 @@ impl PermutationList {
             perms: Vec::new(),
         }
     }
+
+    pub fn get_cyclic_series_biv(pms:&mut PermutationList , ind:usize, val:i32) -> Vec<Permutation> {
+        pms.perms.clone()
+        .into_iter()
+        .filter(|i| i.is_off_diagonal() && i.bottom_row[ind] == val)
+        .collect::<Vec<_>>()
+    
+    }
+
+    pub fn get_cyclic_series_by_index_val(&self, ind:usize, val:i32) -> Vec<Permutation> {
+        self.perms.clone()
+        .into_iter()
+        .filter(|i| i.is_off_diagonal() && i.bottom_row[ind] == val)
+        .collect::<Vec<_>>()
+    
+    }
+
+    pub fn get_cyclic_series(&self, row:i32, col:i32) -> Vec<Permutation> {
+        self.perms.clone()
+        .into_iter()
+        .filter(|i| i.is_off_diagonal() && i.contains_row_column(row, col))
+        .collect::<Vec<_>>()
+
+    }
+
+    pub fn get_cyclic_groups(&self) -> Vec<Permutation> {
+        self.perms.clone()
+        .into_iter()
+        .filter(|i| i.get_perm_matrix().is_off_diagonal())
+        .collect::<Vec<_>>()
+
+    }
+
 }
 
